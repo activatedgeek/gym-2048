@@ -17,9 +17,42 @@ Install
 
     pip install gym_2048
 
+Environment(s)
+---------------
+
+The package currently contains two environments
+
+- ``Tiny2048-v0``: A ``2 x 2`` grid game.
+- ``2048-v0``: The standard ``4 x 4`` grid game.
+
+
+Attributes
+^^^^^^^^^^^
+
+- **Observation**: All observations are ``n x n`` numpy arrays
+  representing the grid. The array is ``0`` for empty locations
+  and numbered ``2, 4, 8, ...`` wherever the tiles are placed.
+
+- **Actions**: There are four actions defined by integers.
+    - ``LEFT = 0``
+    - ``UP = 1``
+    - ``RIGHT = 2``
+    - ``DOWN = 3``
+- **Reward**: Reward is the total score obtained by merging any
+  potential tiles for a given action. Score obtained by merging
+  two tiles is simply the sum of values of those two tiles.
+
+Rendering
+^^^^^^^^^^
+
+Currently only basic print rendering (``mode='human'``) is supported.
+Graphic rendering support is coming soon.
 
 Usage
 ------
+
+Here is a sample rollout of the game which follows the same API as
+OpenAI ``gym.Env``.
 
 .. code:: python
 
@@ -34,4 +67,4 @@ Usage
       while not done:
         action = env.action_space.sample()
         next_state, reward, done, _ = env.step(action)
-        env.render(mode='human')
+        env.render()

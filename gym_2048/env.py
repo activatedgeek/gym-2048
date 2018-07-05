@@ -6,15 +6,21 @@ from gym.utils import seeding
 
 class Base2048Env(gym.Env):
   metadata = {
-    'render.modes': ['human'],
+      'render.modes': ['human'],
   }
 
+  ##
+  # NOTE: Don't modify these numbers as
+  # they define the number of
+  # anti-clockwise rotations before
+  # applying the left action on a grid
+  #
   LEFT = 0
   UP = 1
   RIGHT = 2
   DOWN = 3
 
-  def __init__(self, width = 4, height = 4):
+  def __init__(self, width=4, height=4):
     self.width = width
     self.height = height
 
@@ -74,9 +80,9 @@ class Base2048Env(gym.Env):
   def render(self, mode='human'):
     if mode == 'human':
       for row in self.board.tolist():
-        print(' \t'.join(map(lambda tile: str(tile), row)))
+        print(' \t'.join(map(str, row)))
 
-  def _sample_tiles(self, count = 1):
+  def _sample_tiles(self, count=1):
     """Sample tile 2 or 4."""
 
     choices = [2, 4]
@@ -87,7 +93,7 @@ class Base2048Env(gym.Env):
                                   p=probs)
     return tiles.tolist()
 
-  def _sample_tile_locations(self, board, count = 1):
+  def _sample_tile_locations(self, board, count=1):
     """Sample grid locations with no tile."""
 
     zero_locs = np.argwhere(board == 0)
@@ -98,7 +104,7 @@ class Base2048Env(gym.Env):
     zero_pos = list(zip(*zero_pos))
     return zero_pos
 
-  def _place_random_tiles(self, board, count = 1):
+  def _place_random_tiles(self, board, count=1):
     if not board.all():
       tiles = self._sample_tiles(count)
       tile_locs = self._sample_tile_locations(board, count)
