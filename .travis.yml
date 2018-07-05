@@ -27,6 +27,7 @@ jobs:
 #        - echo "TODO!"
 
     - stage: deploy
+      script: true
       deploy:
         provider: pypi
         user: $PYPI_USERNAME

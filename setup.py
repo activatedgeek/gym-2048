@@ -17,17 +17,20 @@ if CURRENT_PYTHON < MIN_PYTHON:
 with open('requirements.txt', 'r') as f:
     install_requires = f.readlines()
 
-with open('README.md') as f:
+with open('README.rst') as f:
     README = f.read()
+
+with open('VERSION') as f:
+  VERSION = f.read()
 
 setup(name='gym-2048',
       description='OpenAI Gym Environment for 2048',
       long_description=README,
-      long_description_content_type='text/markdown',
-      version='0.1.0',
+      long_description_content_type='text/x-rst',
+      version=VERSION,
       url='https://www.github.com/activatedgeek/gym-2048',
       author='Sanyam Kapoor',
-      license='Apache License 2.0',
+      license='MIT',
       packages=find_packages(),
       install_requires=install_requires,
       extras_require={},

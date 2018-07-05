@@ -15,7 +15,7 @@ Install
 
 .. code:: shell
 
-    pip install gym_2048
+    pip install gym-2048
 
 Environment(s)
 ---------------
