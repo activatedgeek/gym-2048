@@ -1,4 +1,5 @@
 import sys
+import os
 from setuptools import setup, find_packages
 
 CURRENT_PYTHON = sys.version_info[:2]
@@ -20,8 +21,7 @@ with open('requirements.txt', 'r') as f:
 with open('README.rst') as f:
     README = f.read()
 
-with open('VERSION') as f:
-  VERSION = f.read()
+VERSION = os.environ.get('TRAVIS_PULL_REQUEST_BRANCH') or os.environ.get('TRAVIS_BRANCH') or 'dev'
 
 setup(name='gym-2048',
       description='OpenAI Gym Environment for 2048',

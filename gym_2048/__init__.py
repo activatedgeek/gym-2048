@@ -1,5 +1,5 @@
 from gym.envs.registration import register
-
+from .env import Base2048Env
 
 register(
     id='Tiny2048-v0',

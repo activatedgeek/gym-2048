@@ -38,6 +38,7 @@ Attributes
     - ``UP = 1``
     - ``RIGHT = 2``
     - ``DOWN = 3``
+
 - **Reward**: Reward is the total score obtained by merging any
   potential tiles for a given action. Score obtained by merging
   two tiles is simply the sum of values of those two tiles.
@@ -59,12 +60,27 @@ OpenAI ``gym.Env``.
     import gym_2048
     import gym
 
+
     if __name__ == '__main__':
       env = gym.make('2048-v0')
+      env.seed(42)
+
+      env.reset()
       env.render()
 
       done = False
+      moves = 0
       while not done:
-        action = env.action_space.sample()
-        next_state, reward, done, _ = env.step(action)
+        action = env.np_random.choice(range(4), 1).item()
+        next_state, reward, done, info = env.step(action)
+        moves += 1
+
+        print('Next Action: "{}"\n\nReward: {}'.format(
+          gym_2048.Base2048Env.ACTION_STRING[action], reward))
         env.render()
+
+      print('\nTotal Moves: {}'.format(moves))
+
+
+**NOTE**: Top level ``import gym_2048`` is needed to ensure registration with
+``Gym``.

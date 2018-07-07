@@ -20,6 +20,13 @@ class Base2048Env(gym.Env):
   RIGHT = 2
   DOWN = 3
 
+  ACTION_STRING = {
+      LEFT: 'left',
+      UP: 'up',
+      RIGHT: 'right',
+      DOWN: 'down',
+  }
+
   def __init__(self, width=4, height=4):
     self.width = width
     self.height = height
