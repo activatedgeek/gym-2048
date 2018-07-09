@@ -21,7 +21,11 @@ with open('requirements.txt', 'r') as f:
 with open('README.rst') as f:
     README = f.read()
 
-VERSION = os.environ.get('TRAVIS_PULL_REQUEST_BRANCH') or os.environ.get('TRAVIS_BRANCH') or 'dev'
+if os.path.isfile('VERSION'):
+  with open('VERSION') as f:
+    VERSION = f.read()
+else:
+  VERSION = os.environ.get('TRAVIS_PULL_REQUEST_BRANCH') or os.environ.get('TRAVIS_BRANCH') or 'dev'
 
 setup(name='gym-2048',
       description='OpenAI Gym Environment for 2048',
