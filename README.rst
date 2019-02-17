@@ -1,8 +1,8 @@
 Gym 2048
 =========
 
-.. image:: https://travis-ci.com/activatedgeek/gym-2048.svg?branch=master
-    :target: https://travis-ci.com/activatedgeek/gym-2048
+.. image:: https://travis-ci.com/salmanazarr/gym-2048.svg?branch=master
+    :target: https://travis-ci.com/salmanazarr/gym-2048
 
 .. image:: https://badge.fury.io/py/gym-2048.svg
     :target: https://pypi.org/project/gym-2048/
