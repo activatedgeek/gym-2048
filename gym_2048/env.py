@@ -84,6 +84,8 @@ class Base2048Env(gym.Env):
     self.board = np.zeros((self.width, self.height), dtype=np.int64)
     self._place_random_tiles(self.board, count=2)
 
+    return self.board
+
   def render(self, mode='human'):
     if mode == 'human':
       for row in self.board.tolist():
