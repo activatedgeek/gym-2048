@@ -9,7 +9,7 @@ class Base2048Env(gym.Env):
   # NOTE: Don't modify these numbers as they define the number of
   # anti-clockwise rotations before applying the left action on a grid
 
-  LEFT, UP, RIGHT, DOWN = range(3)
+  LEFT, UP, RIGHT, DOWN = range(4)
 
   ACTION_STRING = {
     LEFT: 'left',
