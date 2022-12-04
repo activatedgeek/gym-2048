@@ -6,35 +6,34 @@ from gym.utils import seeding
 
 class Base2048Env(gym.Env):
   metadata = {
-      'render.modes': ['human'],
+    'render.modes': ['human'],
   }
 
-  ##
-  # NOTE: Don't modify these numbers as
-  # they define the number of
-  # anti-clockwise rotations before
-  # applying the left action on a grid
-  #
+  # NOTE: Don't modify these numbers as they define the number of
+  # anti-clockwise rotations before applying the left action on a grid
+
   LEFT = 0
   UP = 1
   RIGHT = 2
   DOWN = 3
 
   ACTION_STRING = {
-      LEFT: 'left',
-      UP: 'up',
-      RIGHT: 'right',
-      DOWN: 'down',
+    LEFT: 'left',
+    UP: 'up',
+    RIGHT: 'right',
+    DOWN: 'down',
   }
 
   def __init__(self, width=4, height=4):
     self.width = width
     self.height = height
 
-    self.observation_space = spaces.Box(low=2,
-                                        high=2**32,
-                                        shape=(self.width, self.height),
-                                        dtype=np.int64)
+    self.observation_space = spaces.Box(
+      low=2,
+      high=2 ** (1 + self.width * self.height),
+      shape=(self.width, self.height),
+      dtype=np.int64
+    )
     self.action_space = spaces.Discrete(4)
 
     # Internal Variables
@@ -77,8 +76,7 @@ class Base2048Env(gym.Env):
 
     return True
 
-
-  def reset(self):
+  def reset(self, **kwargs):
     """Place 2 tiles on empty board."""
 
     self.board = np.zeros((self.width, self.height), dtype=np.int64)
@@ -97,27 +95,24 @@ class Base2048Env(gym.Env):
     choices = [2, 4]
     probs = [0.9, 0.1]
 
-    tiles = self.np_random.choice(choices,
-                                  size=count,
-                                  p=probs)
+    tiles = self.np_random.choice(choices, size=count, p=probs)
     return tiles.tolist()
 
   def _sample_tile_locations(self, board, count=1):
     """Sample grid locations with no tile."""
 
     zero_locs = np.argwhere(board == 0)
-    zero_indices = self.np_random.choice(
-        len(zero_locs), size=count)
+    zero_indices = self.np_random.choice(len(zero_locs), size=count)
 
     zero_pos = zero_locs[zero_indices]
-    zero_pos = list(zip(*zero_pos))
-    return zero_pos
+    return zero_pos.tolist()
 
   def _place_random_tiles(self, board, count=1):
     if not board.all():
       tiles = self._sample_tiles(count)
       tile_locs = self._sample_tile_locations(board, count)
-      board[tile_locs] = tiles
+      for (x, y), tile in zip(tile_locs, tiles):
+        board[x, y] = tile
 
   def _slide_left_and_merge(self, board):
     """Slide tiles on a grid to the left and merge."""
